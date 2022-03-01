@@ -1,5 +1,5 @@
 body {
-  background-color: aliceblue;
+  background-color: rgb(235, 237, 238);
 }
 .container {
   margin-top: 20px;
@@ -8,23 +8,35 @@ body {
 #website-name {
   font-family: "Smooch Sans", sans-serif;
   font-weight: 700;
+  font-size: 80px;
   text-align: center;
   color: blueviolet;
 }
-#error-message {
+#empty-error-message,
+#wrong-error-message {
   text-align: center;
   color: red;
-  font-size: 20px;
   display: none;
 }
+#website-elements {
+  display: no;
+}
+/* #wrong-error-message {
+  text-align: center;
+  color: red;
+  display: none;
+} */
 #total-count {
+  display: block;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
 }
 .detail-box {
-  background-color: rgba(160, 159, 159, 0.493);
-  border-radius: 5px;
+  color: white;
+  background-color: rgba(14, 13, 13, 0.74);
+  border-radius: 10px;
+  border: 2px solid white;
   padding: 20px;
   margin: 20px 0 20px 0;
 }
@@ -34,4 +46,16 @@ body {
 
 #show-more-phones {
   display: none;
+}
+.image-border {
+  border: 2px solid rgba(160, 159, 159, 0.493);
+  border-radius: 20px;
+}
+.features-tag {
+  font-weight: 700;
+}
+.details-tag {
+  border: 1px solid white;
+  padding: 5px;
+  margin: 10px 0 10px 0;
 }

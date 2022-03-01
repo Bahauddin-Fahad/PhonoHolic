@@ -19,49 +19,65 @@ const searchValue = () => {
 
 // Displaying the Phone List
 const displayPhone = (phones) => {
-  console.log(phones);
+  // console.log(phones);
   const errorMessage = document.getElementById("error-message");
   const totalCount = document.getElementById("total-count");
-  const phoneList = document.getElementById("phone-lists");
+  const showMoreButton = document.getElementById("show-more-phones");
   if (phones.length == 0) {
     errorMessage.style.display = "block";
-    clearDetails("details");
+    clearDetails("phone-details");
     clearDetails("phone-lists");
     clearDetails("total-count");
+    showMoreButton.style.display = "none";
   } else {
     errorMessage.style.display = "none";
-    clearDetails("phone-lists");
-    if (phones.length > 20) {
-      const showMoreButton = document.getElementById("show-more-phones");
-      showMoreButton.style.display = "block";
-    }
     totalCount.textContent = `Showing ${phones.length} results`;
-    phones.slice(0, 20).forEach((phone) => {
-      const div = document.createElement("div");
-      div.innerHTML = `
-       <div class="col">
-         <div class="card h-100">
-             <div class="d-flex" >
-               <div class="card-img-div" style="height: 200px">
-                  <img src="${phone.image}" class="card-img-top" alt="" />
-               </div>
-                <div>
-                  <div class="card-body">
-                    <h5 class="card-title">Name: ${phone.phone_name}</h5>
-                    <h6 class="card-text">Brand: ${phone.brand}</h6>
-                    <h6 class="card-text">Release Date: </h6>
-                  <div class="phone-button text-center">
-                    <a href="#" onclick="loadDetails('${phone.slug}')" class="btn btn-primary"> Show More Details </a>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>`;
-      phoneList.appendChild(div);
-    });
+    clearDetails("phone-lists");
+    if (phones.length < 20) {
+      showMoreButton.style.display = "none";
+      showResults(phones);
+    } else if (phones.length > 20) {
+      showMoreButton.style.display = "block";
+      const phoneList = phones.slice(0, 20);
+      showResults(phoneList);
+      document
+        .getElementById("show-more-phones")
+        .addEventListener("click", function () {
+          showMoreButton.style.display = "none";
+          showResults(phones);
+        });
+    }
   }
 };
-// };
+
+// Result Showing Function //
+const showResults = (phones) => {
+  phones.forEach((phone) => {
+    const phoneList = document.getElementById("phone-lists");
+    const div = document.createElement("div");
+    div.innerHTML = `
+       <div class="col">
+          <div class="card h-100">
+            <div
+              class="d-flex flex-column justify-content-center"
+              style="padding: 20px"
+            >
+              <div class="mx-auto">
+                <img src="${phone.image}" class="" alt="" />
+              </div>
+              <div class="card-body text-center">
+                <h5 class="card-title"> ${phone.phone_name}</h5>
+                <h6 class="card-text">${phone.brand}</h6>
+              </div>
+              <div class="text-center">
+               <a href="#" onclick="loadDetails('${phone.slug}')" class="btn btn-primary"> Show More Details </a>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    phoneList.appendChild(div);
+  });
+};
 // Loading the phone details //
 const loadDetails = (phoneId) => {
   //   console.log(phoneId);

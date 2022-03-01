@@ -14,10 +14,18 @@
       crossorigin="anonymous"
     />
     <!-- Font Link  -->
+    <!-- Smooch -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Smooch+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <!-- pt sans  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap"
       rel="stylesheet"
     />
     <!-- Vanila CSS Link  -->
@@ -34,22 +42,28 @@
         <input
           type="text"
           name=""
-          id="search-button"
-          placeholder="search your phone"
+          id="search-input"
+          placeholder="Search Your Phone"
         />
-        <button onclick="searchValue()" class="btn btn-primary">Search</button>
+        <button onclick="searchValue()" id="search-button">Search</button>
       </div>
+      <div class="d-flex justify-content-center" style="margin-top: 20px">
+        <div id="spinner" class="spinner-border" role="status">
+          <!-- <span class="visually-hidden">Loading...</span> -->
+        </div>
+      </div>
+      <h4 id="empty-error-message">Please Enter The Name Of Your Phone!!!</h4>
+      <h4 id="wrong-error-message">No Result Found!</h4>
+      <div id="total-count"></div>
     </section>
-    <h4 id="empty-error-message">Please Give A Name</h4>
-    <h4 id="wrong-error-message">No result found</h4>
-    <div id="total-count"></div>
+    <!-- main elements  -->
     <main id="website-elements" style="display: block">
       <!-- Phone Details  -->
       <section class="container">
         <div class="row d-flex align-items-center">
-          <!-- <div id="phone-image" class="col-6 mx-auto"></div> -->
-          <div id="main-details" class="col-6 mx-auto"></div>
-          <div id="other-details" class="col-6 mx-auto"></div>
+          <div id="phone-image" class="col-12 col-md-8 mx-auto"></div>
+          <div id="main-details" class="col-12 col-md-6 mx-auto"></div>
+          <div id="other-details" class="col-12 col-md-6 mx-auto"></div>
         </div>
       </section>
       <!-- Phone Results  -->
@@ -58,25 +72,7 @@
           id="phone-lists"
           class="row row-cols-1 row-cols-md-3 g-4"
           style="margin-bottom: 20px"
-        >
-          <!-- <div class="col">
-          <div class="card h-100">
-            <div class="d-flex">
-              <div>
-                <img src="" class="card-img-top" alt="" />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Name:</h5>
-                <h6 class="card-text">Brand:</h6>
-                <h6 class="card-text">Release Date:</h6>
-              </div>
-            </div>
-            <div class="text-center">
-              <a href="#" class="btn btn-primary">Show More Details</a>
-            </div>
-          </div>
-        </div> -->
-        </div>
+        ></div>
         <div class="d-flex justify-content-center">
           <button id="show-more-phones" class="btn btn-primary">
             Show More

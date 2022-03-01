@@ -1,5 +1,17 @@
 body {
   background-color: rgb(235, 237, 238);
+  font-family: "PT Sans", sans-serif;
+  /* font-weight: 700; */
+}
+.main {
+  font-weight: 500;
+}
+::placeholder {
+  text-align: center;
+  color: rgb(170, 170, 170);
+  opacity: 1;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 .container {
   margin-top: 20px;
@@ -7,36 +19,92 @@ body {
 }
 #website-name {
   font-family: "Smooch Sans", sans-serif;
-  font-weight: 700;
-  font-size: 80px;
+  font-size: 4.5rem;
   text-align: center;
-  color: blueviolet;
+  margin-bottom: 30px;
+  color: #27725f;
+  font-weight: 700;
+}
+#search-input {
+  width: 20.54rem;
+  text-align: center;
+  color: #1b2e35;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 2px solid rgba(88, 88, 88, 0.411);
+  background-color: #dcdcdc;
+  border-radius: 3px;
+}
+#search-input:focus {
+  background-color: #d5f8e5;
+  border: 2px solid #45a179df;
+  border-radius: 3px;
+  outline: 0;
+}
+#search-button,
+#show-more-phones,
+.show-more-details-button {
+  border: 2px solid #59e4a8;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 10px 0;
+  background-color: #265f56f3;
+  padding: 5px 25px;
+  text-decoration: none;
+}
+#search-button:hover,
+#show-more-phones:hover,
+.show-more-details-button:hover {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
 #empty-error-message,
 #wrong-error-message {
+  margin-top: 10px;
   text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: red;
   display: none;
 }
-#website-elements {
-  display: no;
-}
-/* #wrong-error-message {
-  text-align: center;
-  color: red;
+#website-elements,
+#spinner {
   display: none;
-} */
+}
 #total-count {
   display: block;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
+  margin-top: 10px;
+}
+#phone-card {
+  border-radius: 10px;
+  /* border-color: #1b2e35; */
+  border: 3px solid #1e3d30;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+#phone-name {
+  font-size: 25px;
+  font-weight: 600;
+}
+#phone-brand {
+  font-weight: 600;
+  font-size: 20px;
+}
+#release-text {
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 .detail-box {
-  color: white;
-  background-color: rgba(14, 13, 13, 0.74);
+  /* color: white; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: rgba(209, 209, 209, 0.74);
   border-radius: 10px;
-  border: 2px solid white;
+  border: 2px solid #1e3d30;
   padding: 20px;
   margin: 20px 0 20px 0;
 }
@@ -45,6 +113,7 @@ body {
 }
 
 #show-more-phones {
+  width: 12.5rem;
   display: none;
 }
 .image-border {
@@ -52,10 +121,10 @@ body {
   border-radius: 20px;
 }
 .features-tag {
-  font-weight: 700;
+  font-weight: 600;
 }
 .details-tag {
-  border: 1px solid white;
+  /* border: 1px solid white; */
   padding: 5px;
   margin: 10px 0 10px 0;
 }

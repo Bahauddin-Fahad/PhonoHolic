@@ -7,20 +7,19 @@ const clearDetails = (id) => {
 const searchValue = () => {
   const searchField = document.getElementById("search-button");
   const searchFieldValue = searchField.value;
-  //   console.log(searchFieldValue);
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldValue}`;
   fetch(url)
     .then((res) => res.json())
     .then((phones) => displayPhone(phones.data));
   clearDetails("main-details");
   clearDetails("other-details");
+  // console.log(searchField.value);
   searchField.value = "";
 };
 
 // Displaying the Phone List
 const displayPhone = (phones) => {
   console.log(phones);
-
   const errorMessage = document.getElementById("error-message");
   const totalCount = document.getElementById("total-count");
   const phoneList = document.getElementById("phone-lists");
@@ -32,11 +31,14 @@ const displayPhone = (phones) => {
   } else {
     errorMessage.style.display = "none";
     clearDetails("phone-lists");
-    totalCount.textContent = `Showing ${phones.length} results`;
     if (phones.length > 20) {
-      phones.slice(0, 20).forEach((phone) => {
-        const div = document.createElement("div");
-        div.innerHTML = `
+      const showMoreButton = document.getElementById("show-more-phones");
+      showMoreButton.style.display = "block";
+    }
+    totalCount.textContent = `Showing ${phones.length} results`;
+    phones.slice(0, 20).forEach((phone) => {
+      const div = document.createElement("div");
+      div.innerHTML = `
        <div class="col">
          <div class="card h-100">
              <div class="d-flex" >
@@ -55,14 +57,11 @@ const displayPhone = (phones) => {
               </div>
           </div>
         </div>`;
-        phoneList.appendChild(div);
-      });
-      const showMoreButton = document.getElementById("show-more-phones");
-      showMoreButton.style.display = "block";
-      const showMorePhones = () => {};
-    }
+      phoneList.appendChild(div);
+    });
   }
 };
+// };
 // Loading the phone details //
 const loadDetails = (phoneId) => {
   //   console.log(phoneId);

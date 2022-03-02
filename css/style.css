@@ -1,10 +1,10 @@
 body {
   background-color: rgb(235, 237, 238);
   font-family: "PT Sans", sans-serif;
-  /* font-weight: 700; */
 }
-.main {
-  font-weight: 500;
+.container {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 ::placeholder {
   text-align: center;
@@ -12,10 +12,6 @@ body {
   opacity: 1;
   font-size: 1.1rem;
   font-weight: 600;
-}
-.container {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 #website-name {
   font-family: "Smooch Sans", sans-serif;
@@ -25,6 +21,8 @@ body {
   color: #27725f;
   font-weight: 700;
 }
+
+/* search-input */
 #search-input {
   width: 20.54rem;
   text-align: center;
@@ -41,13 +39,14 @@ body {
   border-radius: 3px;
   outline: 0;
 }
+
+/* Buttons */
 #search-button,
 #show-more-phones,
 .show-more-details-button {
   border: 2px solid #59e4a8;
   border-radius: 5px;
   color: white;
-  font-size: 1.1rem;
   font-weight: 600;
   margin: 10px 0;
   background-color: #265f56f3;
@@ -58,9 +57,15 @@ body {
 #show-more-phones:hover,
 .show-more-details-button:hover {
   color: white;
-  font-size: 1.2rem;
   text-decoration: none;
+  transform: scale(1.03);
 }
+#show-more-phones {
+  width: 12.5rem;
+  display: none;
+}
+
+/* Error messages */
 #empty-error-message,
 #wrong-error-message {
   margin-top: 10px;
@@ -78,13 +83,14 @@ body {
   display: block;
   text-align: center;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 25px;
   margin-top: 10px;
 }
+
+/* Result Cards */
 #phone-card {
   border-radius: 10px;
-  /* border-color: #1b2e35; */
-  border: 3px solid #1e3d30;
+  border: 4px solid #1e3d30;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 #phone-name {
@@ -95,26 +101,22 @@ body {
   font-weight: 600;
   font-size: 20px;
 }
+
+.detail-box {
+  min-height: 420px;
+  background-color: rgba(209, 209, 209, 0.74);
+  border-radius: 10px;
+  border: 3px solid #1e3d30;
+  padding: 20px;
+  margin: 20px 10px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 #release-text {
   font-size: 1.1rem;
   font-weight: bold;
-}
-.detail-box {
-  /* color: white; */
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background-color: rgba(209, 209, 209, 0.74);
-  border-radius: 10px;
-  border: 2px solid #1e3d30;
-  padding: 20px;
-  margin: 20px 0 20px 0;
-}
-.phone-button {
-  margin: 5px 0 5px 0;
-}
-
-#show-more-phones {
-  width: 12.5rem;
-  display: none;
 }
 .image-border {
   border: 2px solid rgba(160, 159, 159, 0.493);
@@ -124,6 +126,7 @@ body {
   font-weight: 600;
 }
 .details-tag {
+  font-size: 1.05rem;
   /* border: 1px solid white; */
   padding: 5px;
   margin: 10px 0 10px 0;

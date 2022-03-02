@@ -1,7 +1,10 @@
+// Clearing the Content
 const clearDetails = (id) => {
   const element = document.getElementById(id);
   element.textContent = "";
 };
+
+// Display Function
 const toggleElement = (id, displayStyle) => {
   document.getElementById(id).style.display = displayStyle;
 };
@@ -27,7 +30,7 @@ const searchValue = () => {
       .then((phones) => displayPhone(phones.data));
     clearDetails("main-details");
     clearDetails("other-details");
-    // console.log(searchField.value);
+    clearDetails("phone-image");
     searchField.value = "";
   }
 };
@@ -42,7 +45,6 @@ const displayPhone = (phones) => {
     toggleElement("total-count", "none");
     toggleElement("website-elements", "none");
     toggleElement("show-more-phones", "none");
-    clearDetails("phone-details");
     clearDetails("phone-lists");
     clearDetails("total-count");
   } else {
@@ -80,7 +82,7 @@ const showResults = (phones) => {
     const phoneList = document.getElementById("phone-lists");
     const div = document.createElement("div");
     div.innerHTML = `
-       <div class="col">
+       <div class="col-11 col-md-12 col-lg-12 mx-auto">
           <div id="phone-card" class="card h-100">
             <div
               class="d-flex flex-column justify-content-center"
@@ -94,7 +96,7 @@ const showResults = (phones) => {
                 <h6 id="phone-brand" class="card-text">${phone.brand}</h6>
               </div>
               <div class="text-center">
-               <a href="#" onclick="loadDetails('${phone.slug}')" class="show-more-details-button"> Show More Details </a>
+               <a href="#phone-details" onclick="loadDetails('${phone.slug}')" class="show-more-details-button"> Show More Details </a>
               </div>
             </div>
           </div>
@@ -112,8 +114,6 @@ const loadDetails = (phoneId) => {
 
 // Displaying the Details //
 const showDetails = (data) => {
-  const sensorArray = data.mainFeatures.sensors;
-  console.log(sensorArray);
   const detailsImage = document.getElementById("phone-image");
   const mainDetailBox = document.getElementById("main-details");
   clearDetails("phone-image");
@@ -121,15 +121,19 @@ const showDetails = (data) => {
   const detailsImageDiv = document.createElement("div");
   detailsImageDiv.classList.add("detail-box");
   detailsImageDiv.innerHTML = `
-   <div class="text-center mx-auto "style="padding: 20px">
+            <div class="text-center mx-auto "style="padding: 20px">
               <img src="${data.image}" class="image-border" alt="" />
             </div>
-            <h6 id="release-text" class="text-center" style="margin-bottom:25px"> ${data.releaseDate} <h6>`;
+            <h6 id="release-text" class="text-center" style="margin-bottom:25px"> ${
+              data.releaseDate
+                ? data.releaseDate
+                : "Release Date : Coming Soon..."
+            } <h6>`;
   detailsImage.appendChild(detailsImageDiv);
   const mainDetailsDiv = document.createElement("div");
   mainDetailsDiv.classList.add("detail-box");
   mainDetailsDiv.innerHTML = `
-            <h4 class="features-tag">Main Features of ${data.name}</h4>
+            <h4 class="features-tag">Main Features Of ${data.name}</h4>
             <h6 class="details-tag"><span class="features-tag">Storage : </span>${
               data.mainFeatures.storage
             }</h6>
@@ -151,7 +155,7 @@ const showDetails = (data) => {
   const otherDetailBox = document.getElementById("other-details");
   clearDetails("other-details");
   if (data.others) {
-    otherDetailBox.setAttribute("class", "col-12 col-md-6 mx-auto");
+    otherDetailBox.setAttribute("class", "col-10 col-md-6 mx-auto");
     const otherDetailsDiv = document.createElement("div");
     otherDetailsDiv.classList.add("detail-box");
     otherDetailsDiv.innerHTML = `

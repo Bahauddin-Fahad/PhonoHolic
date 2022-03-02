@@ -38,21 +38,29 @@
     </header>
     <!-- Search Button  -->
     <section class="container text-center">
-      <div>
+      <div
+        class="d-flex flex-column flex-sm-row flex-md-row flex-lg-row justify-content-center align-items-center"
+      >
         <input
           type="text"
           name=""
           id="search-input"
           placeholder="Search Your Phone"
         />
-        <button onclick="searchValue()" id="search-button">Search</button>
+        <button
+          onclick="searchValue()"
+          id="search-button"
+          style="margin-left: 5px"
+        >
+          Search
+        </button>
       </div>
       <div class="d-flex justify-content-center" style="margin-top: 20px">
         <div id="spinner" class="spinner-border" role="status">
           <!-- <span class="visually-hidden">Loading...</span> -->
         </div>
       </div>
-      <h4 id="empty-error-message">Please Enter The Name Of Your Phone!!!</h4>
+      <h4 id="empty-error-message">Please Enter The Name Of The Phone!!!</h4>
       <h4 id="wrong-error-message">No Result Found!</h4>
       <div id="total-count"></div>
     </section>
@@ -60,17 +68,17 @@
     <main id="website-elements" style="display: block">
       <!-- Phone Details  -->
       <section class="container">
-        <div class="row d-flex align-items-center">
-          <div id="phone-image" class="col-12 col-md-8 mx-auto"></div>
-          <div id="main-details" class="col-12 col-md-6 mx-auto"></div>
-          <div id="other-details" class="col-12 col-md-6 mx-auto"></div>
+        <div id="phone-details" class="row d-flex align-items-center">
+          <div id="phone-image" class="col-10 col-md-7 mx-auto"></div>
+          <div id="main-details" class="col-10 col-md-6 mx-auto"></div>
+          <div id="other-details" class="col-10 col-md-6 mx-auto"></div>
         </div>
       </section>
       <!-- Phone Results  -->
       <section class="container">
         <div
           id="phone-lists"
-          class="row row-cols-1 row-cols-md-3 g-4"
+          class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
           style="margin-bottom: 20px"
         ></div>
         <div class="d-flex justify-content-center">

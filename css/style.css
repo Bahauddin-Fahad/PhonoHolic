@@ -44,7 +44,7 @@ body {
 #search-button,
 #show-more-phones,
 .show-more-details-button {
-  border: 2px solid #59e4a8;
+  border: 2px solid #40a378;
   border-radius: 5px;
   color: white;
   font-weight: 600;
@@ -93,41 +93,40 @@ body {
   border: 4px solid #1e3d30;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-#phone-name {
-  font-size: 25px;
-  font-weight: 600;
+.phone-name {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 #phone-brand {
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
+/* Details Section  */
 .detail-box {
   min-height: 420px;
   background-color: rgba(209, 209, 209, 0.74);
   border-radius: 10px;
   border: 3px solid #1e3d30;
   padding: 20px;
-  margin: 20px 10px 20px 10px;
+  margin: 20px 0 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-#release-text {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
 .image-border {
   border: 2px solid rgba(160, 159, 159, 0.493);
   border-radius: 20px;
 }
-.features-tag {
+#release-text {
+  font-weight: bold;
+}
+.features-name {
   font-weight: 600;
 }
-.details-tag {
+.features-details {
   font-size: 1.05rem;
-  /* border: 1px solid white; */
   padding: 5px;
   margin: 10px 0 10px 0;
 }

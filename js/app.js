@@ -4,16 +4,22 @@ const clearDetails = (id) => {
   element.textContent = "";
 };
 
-// Display Function
+// Display Function //
 const toggleElement = (id, displayStyle) => {
   document.getElementById(id).style.display = displayStyle;
 };
-// Getting the search Text //
+// Getting The Search Text //
+getInputValue = () => {
+  const searchField = document.getElementById("search-input");
+  const searchFieldInput = searchField.value;
+  const searchFieldInputText = searchFieldInput.toLowerCase();
+  searchField.value = "";
+  return searchFieldInputText;
+};
 const searchValue = () => {
   toggleElement("spinner", "block");
-  const searchField = document.getElementById("search-input");
-  const searchFieldValue = searchField.value;
-  if (searchFieldValue === "" || searchFieldValue <= 0) {
+  const searchFieldInputText = getInputValue();
+  if (searchFieldInputText === "" || searchFieldInputText <= 0) {
     toggleElement("empty-error-message", "block");
     toggleElement("wrong-error-message", "none");
     toggleElement("total-count", "none");
@@ -24,23 +30,26 @@ const searchValue = () => {
     toggleElement("total-count", "block");
     toggleElement("website-elements", "block");
 
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldValue}`;
+    const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldInputText}`;
     fetch(url)
       .then((res) => res.json())
-      .then((phones) => displayPhone(phones.data));
+      .then((phones) => loadPhoneList(phones.data));
     clearDetails("main-details");
     clearDetails("other-details");
     clearDetails("phone-image");
-    searchField.value = "";
   }
 };
 
-// Displaying the Phone List
-const displayPhone = (phones) => {
+// Loading the Phone List //
+const loadPhoneList = (phones) => {
   toggleElement("spinner", "none");
-  // console.log(phones);
   const totalCount = document.getElementById("total-count");
-  if (phones.length === 0) {
+  const searchFieldInputText = getInputValue();
+  const filteredPhones = phones.filter(
+    (phone) => !phone.phone_name.includes("Watch")
+  );
+  totalCount.textContent = `Showing ${filteredPhones.length} results`;
+  if (filteredPhones.length === 0 || searchFieldInputText === "watch") {
     toggleElement("wrong-error-message", "block");
     toggleElement("total-count", "none");
     toggleElement("website-elements", "none");
@@ -51,33 +60,36 @@ const displayPhone = (phones) => {
     toggleElement("wrong-error-message", "none");
     toggleElement("total-count", "block");
     toggleElement("website-elements", "block");
-
-    totalCount.textContent = `Showing ${phones.length} results`;
     clearDetails("phone-lists");
-    if (phones.length < 20) {
-      // showMoreButton.style.display = "none";
+
+    // Phones Less than 20 //
+    if (filteredPhones.length <= 20) {
       toggleElement("show-more-phones", "none");
       clearDetails("phone-lists");
-      showResults(phones);
-    } else if (phones.length > 20) {
+      displayPhoneLists(filteredPhones);
+    }
+    // Phones More than 20 //
+    else if (filteredPhones.length > 20) {
       clearDetails("phone-lists");
       toggleElement("show-more-phones", "block");
       clearDetails("phone-lists");
-      const phoneList = phones.slice(0, 20);
-      showResults(phoneList);
+      const phone20List = filteredPhones.slice(0, 20);
+      displayPhoneLists(phone20List);
+
+      // Showing all Phones More than 20 //
       document
         .getElementById("show-more-phones")
         .addEventListener("click", function () {
           toggleElement("show-more-phones", "none");
           clearDetails("phone-lists");
-          showResults(phones);
+          displayPhoneLists(filteredPhones);
         });
     }
   }
 };
 
-// Result Showing Function //
-const showResults = (phones) => {
+// Phone List Showing Function //
+const displayPhoneLists = (phones) => {
   phones.forEach((phone) => {
     const phoneList = document.getElementById("phone-lists");
     const div = document.createElement("div");
@@ -92,7 +104,7 @@ const showResults = (phones) => {
                 <img src="${phone.image}" class="" alt="" />
               </div>
               <div class="card-body text-center">
-                <h5 id="phone-name" class="card-title"> ${phone.phone_name}</h5>
+                <h5 class="card-title phone-name "> ${phone.phone_name}</h5>
                 <h6 id="phone-brand" class="card-text">${phone.brand}</h6>
               </div>
               <div class="text-center">
@@ -104,9 +116,9 @@ const showResults = (phones) => {
     phoneList.appendChild(div);
   });
 };
+
 // Loading the phone details //
 const loadDetails = (phoneId) => {
-  //   console.log(phoneId);
   fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then((res) => res.json())
     .then((phone) => showDetails(phone.data));
@@ -114,6 +126,7 @@ const loadDetails = (phoneId) => {
 
 // Displaying the Details //
 const showDetails = (data) => {
+  // Showing The Image in the Detail Section //
   const detailsImage = document.getElementById("phone-image");
   const mainDetailBox = document.getElementById("main-details");
   clearDetails("phone-image");
@@ -124,34 +137,38 @@ const showDetails = (data) => {
             <div class="text-center mx-auto "style="padding: 20px">
               <img src="${data.image}" class="image-border" alt="" />
             </div>
+            <h5 class="phone-name text-center"> ${data.name} </h5>
             <h6 id="release-text" class="text-center" style="margin-bottom:25px"> ${
               data.releaseDate
                 ? data.releaseDate
                 : "Release Date : Coming Soon..."
-            } <h6>`;
+            } 
+            <h6>`;
   detailsImage.appendChild(detailsImageDiv);
+
+  // Showing The Main Features in the Detail Section //
   const mainDetailsDiv = document.createElement("div");
   mainDetailsDiv.classList.add("detail-box");
   mainDetailsDiv.innerHTML = `
-            <h4 class="features-tag">Main Features Of ${data.name}</h4>
-            <h6 class="details-tag"><span class="features-tag">Storage : </span>${
+            <h4 class="features-name">Main Features Of ${data.name}</h4>
+            <h6 class="features-details"><span class="features-name">Storage : </span>${
               data.mainFeatures.storage
             }</h6>
-            <h6 class="details-tag"><span class="features-tag">Display Size : </span>${
+            <h6 class="features-details"><span class="features-name">Display Size : </span>${
               data.mainFeatures.displaySize
             } </h6>
-            <h6 class="details-tag"><span class="features-tag">Chipset : </span>${
+            <h6 class="features-details"><span class="features-name">Chipset : </span>${
               data.mainFeatures.chipSet
             }</h6>
-            <h6 class="details-tag"><span class="features-tag">Memory : </span>${
+            <h6 class="features-details"><span class="features-name">Memory : </span>${
               data.mainFeatures.memory
             }</h6>
-            <h6 class="details-tag"><span class="features-tag">Sensors : </span>${data.mainFeatures.sensors.join(
+            <h6 class="features-details"><span class="features-name">Sensors : </span>${data.mainFeatures.sensors.join(
               ",\n"
             )}</h6>`;
   mainDetailBox.appendChild(mainDetailsDiv);
 
-  // displaying the other details//
+  // Displaying The Image in the Detail Section //
   const otherDetailBox = document.getElementById("other-details");
   clearDetails("other-details");
   if (data.others) {
@@ -159,13 +176,13 @@ const showDetails = (data) => {
     const otherDetailsDiv = document.createElement("div");
     otherDetailsDiv.classList.add("detail-box");
     otherDetailsDiv.innerHTML = `
-          <h4 class="features-tag">Other Features Of ${data.name}</h4>
-            <h6 class="details-tag"><span class="features-tag">WLAN :</span> ${data.others.WLAN}</h6>
-            <h6 class="details-tag"><span class="features-tag">Bluetooth :</span> ${data.others.Bluetooth} </h6>
-            <h6 class="details-tag"><span class="features-tag">GPS :</span> ${data.others.GPS}</h6>
-            <h6 class="details-tag"><span class="features-tag">USB :</span> ${data.others.USB}</h6>
-            <h6 class="details-tag"><span class="features-tag">Radio :</span> ${data.others.Radio}</h6>
-            <h6 class="details-tag"><span class="features-tag">NFC :</span> ${data.others.NFC}</h6>`;
+          <h4 class="features-name">Other Features Of ${data.name}</h4>
+            <h6 class="features-details"><span class="features-name">WLAN :</span> ${data.others.WLAN}</h6>
+            <h6 class="features-details"><span class="features-name">Bluetooth :</span> ${data.others.Bluetooth} </h6>
+            <h6 class="features-details"><span class="features-name">GPS :</span> ${data.others.GPS}</h6>
+            <h6 class="features-details"><span class="features-name">USB :</span> ${data.others.USB}</h6>
+            <h6 class="features-details"><span class="features-name">Radio :</span> ${data.others.Radio}</h6>
+            <h6 class="features-details"><span class="features-name">NFC :</span> ${data.others.NFC}</h6>`;
     otherDetailBox.appendChild(otherDetailsDiv);
   } else {
     otherDetailBox.removeAttribute("class");
